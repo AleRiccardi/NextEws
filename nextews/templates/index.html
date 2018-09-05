@@ -6,33 +6,40 @@
         <div class="col-md-8 px-0">
             <h1 class="display-4 font-italic">{{ last_news.title }}</h1>
             <p class="lead my-3">{{ last_news.description }}</p>
-            <p class="lead mb-0"><a href="{{ last_news.url }}" class="text-white font-weight-bold" target="_blank"
-                                    rel="noopener noreferrer" git>Continue reading...</a></p>
+            <p class="lead mb-0">
+                <a href="{{ last_news.url }}" class="text-white font-weight-bold" target="_blank"
+                   rel="noopener noreferrer">Continue reading...</a>
+            </p>
         </div>
     </div>
 
     <div class="row mb-2">
-        {% for index, news in next_two_news.iterrows() %}
+        {% for index, the_news in next_two_news.iterrows() %}
 
             <div class="col-md-6">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+                <div class="card news-card flex-md-row mb-4 shadow-sm ">
                     <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">World</strong>
+                        <div class="flex-row mb-2 justify-content-between">
+                            <strong class="text-primary mr-3">World</strong>
+                            <small class="text-muted">National Geographic</small>
+                        </div>
+
+
                         <h4 class="mb-0">
-                            <a class="text-dark" href="#">{{ news.title }}</a>
+                            <a class="text-dark" href="#">{{ the_news.title }}</a>
                         </h4>
                         <div class="mb-1 text-muted">Nov 12</div>
                         <p class="card-text mb-auto">
-                            {% if not news.description|length > 70 %}
-                                {{ news.description }}
+                            {% if not the_news.description|length > 70 %}
+                                {{ the_news.description }}
                             {% else %}
-                                {{ news.description[:70] }} ...
+                                {{ the_news.description[:70] }} ...
                             {% endif %}
                         </p>
-                        <a href="{{ news.url }}">Continue reading</a>
+                        <a href="{{ the_news.url }}" target="_blank" rel="noopener noreferrer">Continue reading</a>
                     </div>
                     <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
-                        <img class="img-resp-in-div" src="{{ news.url_to_image }}"
+                        <img class="img-resp-in-div" src="{{ the_news.url_to_image }}"
                              alt="Card image cap">
                     </div>
                 </div>
@@ -41,43 +48,95 @@
 
     </div>
 
-    <main role="main" class="container">
+    <main role="main">
         <div class="row">
-            <div class="col-md-8 blog-main">
+            <div class="col-md-9">
                 <h3 class="pl-2 pb-3 mb-2 font-italic">
                     Last news
                 </h3>
+                {% for index, the_news in news.iterrows() %}
+                    <div class="news-post border px-4 py-3 rounded">
+                        <h2 class="news-post-title">{{ the_news.title }}</h2>
+                        <p class="news-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
 
-                <div class="blog-post border px-4 py-3 rounded">
-                    <h2 class="blog-post-title">Sample blog post</h2>
-                    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+                        <p>{{ the_news.description }}</p>
+                    </div>
+                {% endfor %}
 
-                    <p>This blog post shows a few different types of content that's supported and styled with Bootstrap.
-                        Basic typography, images, and code are all supported.</p>
-                </div><!-- /.blog-post -->
+                <!--
+                    <nav class="blog-pagination">
+                        <a class="btn btn-outline-primary" href="#">Older</a>
+                        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+                    </nav>
+                r-->
+            </div>
 
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Older</a>
-                    <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-                </nav>
-
-            </div><!-- /.blog-main -->
-
-            <aside class="col-md-4 blog-sidebar">
-                <div class="p-3">
-                    <h4 class="font-italic">Category</h4>
-                    <ol class="list-unstyled mb-0">
-                        <li><a href="#">World</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Technology</a></li>
-                        <li><a href="#">Entertainment</a></li>
-                        <li><a href="#">Sport</a></li>
-                    </ol>
+            <aside class="col-md-3 sidebar">
+                <div id="sticky-sidebar-anchor"></div>
+                <div id="sticky-sidebar" class="card">
+                    <div class="card-header">
+                        Categories
+                    </div>
+                    <div class="card-body">
+                        <ol class="side-cat list-unstyled mb-0">
+                            <li>
+                                <a href="#">
+                                    <div class="side-cat-icon mr-2">
+                                        <div class="side-cat-icon-center">
+                                            <i class="fas fa-globe-americas"></i>
+                                        </div>
+                                    </div>
+                                    <span class="side-cat-title">World</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="side-cat-icon mr-2">
+                                        <div class="side-cat-icon-center">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                    </div>
+                                    <span class="side-cat-title">Business</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="side-cat-icon mr-2">
+                                        <div class="side-cat-icon-center">
+                                            <i class="fas fa-robot"></i>
+                                        </div>
+                                    </div>
+                                    <span class="side-cat-title">Technology</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="side-cat-icon mr-2">
+                                        <div class="side-cat-icon-center">
+                                            <i class="fab fa-fort-awesome"></i>
+                                        </div>
+                                    </div>
+                                    <span class="side-cat-title">Entertainment</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="side-cat-icon mr-2">
+                                        <div class="side-cat-icon-center">
+                                            <i class="fas fa-basketball-ball"></i>
+                                        </div>
+                                    </div>
+                                    <span class="side-cat-title">Sport</span>
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
                 </div>
 
             </aside><!-- /.blog-sidebar -->
 
         </div><!-- /.row -->
+
 
     </main><!-- /.container -->
 
