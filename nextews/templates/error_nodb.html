@@ -1,0 +1,12 @@
+{% extends "layout/app.html" %}
+
+{% block body %}
+    <div class="error">
+        <h2>Database file not found!</h2>
+        <p>
+            File <code>{{ dbfile }}</code> was not found in directory <code>{{ datadir }}</code>!
+            <br>
+            Retry when you will have the right file.
+        </p>
+    </div>
+{% endblock %}
