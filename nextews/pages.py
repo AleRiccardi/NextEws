@@ -9,6 +9,7 @@ from . import app, db
 def home():
     news = db.get_all_news()
     last_news = news.iloc[0]
-    news = news[1:]
-    return render_template("index.html", last_news=last_news, news=news)
+    next_two_news = news.iloc[1:3]
+    news = news[3:]
+    return render_template("index.html", last_news=last_news, next_two_news=next_two_news, news=news)
 

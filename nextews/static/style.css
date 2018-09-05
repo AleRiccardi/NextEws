@@ -139,9 +139,19 @@ h1, h2, h3, h4, h5, h6 {
   Index
   -------------------*/
 
-.main-news {
+.img-responsive {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat !important;
     height: 100%;
+}
+
+.img-resp-div{
+    width: 160px;
+    overflow: hidden;
+}
+
+.img-resp-in-div{
+    height: 100%;
+    width: auto;
 }
