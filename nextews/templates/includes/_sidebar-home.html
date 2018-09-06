@@ -1,0 +1,25 @@
+<aside class="col-md-3 sidebar">
+    <div id="sticky-sidebar-anchor"></div>
+    <div id="sticky-sidebar" class="card">
+        <div class="card-header">
+            Categories
+        </div>
+        <div class="card-body">
+            <ol class="side-cat list-unstyled mb-0">
+                {% for index, category in categories.iterrows() %}
+                    <li>
+                        <a href="{{ url_for('category', slug=category['slug']) }}">
+                            <div class="side-cat-icon mr-2">
+                                <div class="side-cat-icon-center">
+                                    <i class="{{ category['class'] }}"></i>
+                                </div>
+                            </div>
+                            <span class="side-cat-title">{{ category['name'] }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+
+</aside>

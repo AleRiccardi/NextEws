@@ -20,23 +20,30 @@
                 <div class="card news-card flex-md-row mb-4 shadow-sm ">
                     <div class="card-body d-flex flex-column align-items-start">
                         <div class="flex-row mb-2 justify-content-between">
-                            <strong class="text-primary mr-3">World</strong>
-                            <small class="text-muted">National Geographic</small>
+                            <a class="text-primary mr-3" href="#">
+                                <strong class="">World</strong>
+                            </a>
+                            <a class="text-muted" href="#">
+                                <small class="">National Geographic</small>
+                            </a>
                         </div>
 
-
-                        <h4 class="mb-0">
-                            <a class="text-dark" href="#">{{ the_news.title }}</a>
-                        </h4>
-                        <div class="mb-1 text-muted">Nov 12</div>
-                        <p class="card-text mb-auto">
-                            {% if not the_news.description|length > 70 %}
-                                {{ the_news.description }}
-                            {% else %}
-                                {{ the_news.description[:70] }} ...
-                            {% endif %}
-                        </p>
-                        <a href="{{ the_news.url }}" target="_blank" rel="noopener noreferrer">Continue reading</a>
+                        <a href="{{ the_news.url }}" target="_blank" rel="noopener noreferrer">
+                            <div>
+                                <h4 class="mb-0">
+                                    {{ the_news.title }}
+                                </h4>
+                                <div class="mb-1 text-muted">Nov 12</div>
+                                <p class="card-text mb-auto">
+                                    {% if not the_news.description|length > 70 %}
+                                        {{ the_news.description }}
+                                    {% else %}
+                                        {{ the_news.description[:70] }} ...
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </a>
+                        <small class="mt-auto text-muted">by <a href="#">Mark</a></small>
                     </div>
                     <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
                         <img class="img-resp-in-div" src="{{ the_news.url_to_image }}"
@@ -55,85 +62,16 @@
                     Last news
                 </h3>
                 {% for index, the_news in news.iterrows() %}
-                    <div class="news-post border px-4 py-3 rounded">
-                        <h2 class="news-post-title">{{ the_news.title }}</h2>
-                        <p class="news-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
-
-                        <p>{{ the_news.description }}</p>
-                    </div>
+                    {% with news=the_news %}
+                        {% include "components/news-standard.html" %}
+                    {% endwith %}
                 {% endfor %}
 
-                <!--
-                    <nav class="blog-pagination">
-                        <a class="btn btn-outline-primary" href="#">Older</a>
-                        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-                    </nav>
-                r-->
-            </div>
 
-            <aside class="col-md-3 sidebar">
-                <div id="sticky-sidebar-anchor"></div>
-                <div id="sticky-sidebar" class="card">
-                    <div class="card-header">
-                        Categories
-                    </div>
-                    <div class="card-body">
-                        <ol class="side-cat list-unstyled mb-0">
-                            <li>
-                                <a href="#">
-                                    <div class="side-cat-icon mr-2">
-                                        <div class="side-cat-icon-center">
-                                            <i class="fas fa-globe-americas"></i>
-                                        </div>
-                                    </div>
-                                    <span class="side-cat-title">World</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="side-cat-icon mr-2">
-                                        <div class="side-cat-icon-center">
-                                            <i class="fas fa-building"></i>
-                                        </div>
-                                    </div>
-                                    <span class="side-cat-title">Business</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="side-cat-icon mr-2">
-                                        <div class="side-cat-icon-center">
-                                            <i class="fas fa-robot"></i>
-                                        </div>
-                                    </div>
-                                    <span class="side-cat-title">Technology</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="side-cat-icon mr-2">
-                                        <div class="side-cat-icon-center">
-                                            <i class="fab fa-fort-awesome"></i>
-                                        </div>
-                                    </div>
-                                    <span class="side-cat-title">Entertainment</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="side-cat-icon mr-2">
-                                        <div class="side-cat-icon-center">
-                                            <i class="fas fa-basketball-ball"></i>
-                                        </div>
-                                    </div>
-                                    <span class="side-cat-title">Sport</span>
-                                </a>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
+            </div><!-- /.col-md-9 -->
 
-            </aside><!-- /.blog-sidebar -->
+            {% include 'includes/_sidebar-home.html' %}
+
 
         </div><!-- /.row -->
 
@@ -143,3 +81,9 @@
 {% endblock body %}
 
 
+<!--
+    <nav class="blog-pagination">
+        <a class="btn btn-outline-primary" href="#">Older</a>
+        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+    </nav>
+-->

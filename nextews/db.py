@@ -74,3 +74,11 @@ def get_all_news():
 
 def get_last_news():
     return query("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
+
+
+def get_categories():
+    return query("SELECT * FROM categories")
+
+
+def get_sources():
+    return query("SELECT * FROM sources")

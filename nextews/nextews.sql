@@ -1,4 +1,20 @@
 
+
+CREATE TABLE `categories` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `slug` TEXT NOT NULL,
+  `name` TEXT NOT NULL,
+  `class` TEXT NOT NULL
+);
+
+INSERT INTO `categories` (`id`, `slug`, `name`, `class`) VALUES
+(0, 'business', 'Business', 'fas fa-building'),
+(1, 'entertainment', 'Entertainment', 'fab fa-fort-awesome'),
+(2, 'politics', 'Politics', 'fas fa-briefcase'),
+(3, 'sport', 'Sport', 'fas fa-basketball-ball'),
+(4, 'technology', 'Technology', 'fas fa-robot');
+
+
 CREATE TABLE `authors` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `name` varchar(300)  NOT NULL

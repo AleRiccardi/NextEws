@@ -13,13 +13,11 @@
 </header>
 <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
-        <a class="p-2 text-muted" href="#">Independent</a>
-        <a class="p-2 text-muted" href="#">CNN</a>
-        <a class="p-2 text-muted" href="#">Fox news</a>
-        <a class="p-2 text-muted" href="#">NBC news</a>
-        <a class="p-2 text-muted" href="#">Vice news</a>
-        <a class="p-2 text-muted" href="#">Techcrunch</a>
-        <a class="p-2 text-muted" href="#">The economist</a>
-        <a class="p-2 text-muted" href="#">National Geographic</a>
+        {% for index, the_source in sources.iterrows() %}
+        <a class="p-2 {%  if the_source['slug'] == source['slug']%} text-primary {% else %} text-muted {% endif %} "
+           href="{{ url_for('source', slug=the_source['slug']) }}">
+            {{ the_source['name'] }}
+        </a>
+        {% endfor %}
     </nav>
 </div>
