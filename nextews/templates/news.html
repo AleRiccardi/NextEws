@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout/app.html" %}
 
-</body>
-</html>
+{% block body %}
+    <div class="jumbotron p-3 p-md-5 text-white rounded img-responsive bg-dark"
+         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ news['url_to_image'] }});">
+        <div class="col-md-12 px-0 text-center">
+            <h1 class="display-4 font-italic">{{ news['title'] }}</h1>
+            <p class="lead my-3">{{ news['description'] }}</p>
+        </div>
+    </div>
+
+    <main role="main">
+        <div class="row justify-content-md-center">
+            <div class="col-md-8 ">
+                <div class="mb-4">
+                    <p class="text-justify">
+                        {{ news['content'] }}
+                    </p>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-outline-primary mb-5" href="{{ news['url'] }}" target="_blank">Read on own newspaper ...</a>
+                </div>
+            </div><!-- /.col-md-9 -->
+        </div><!-- /.row -->
+    </main><!-- /.container -->
+
+{% endblock body %}
+
+

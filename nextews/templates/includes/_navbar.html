@@ -13,7 +13,7 @@
 </header>
 <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
-        {% for index, the_source in sources.iterrows() %}
+        {% for the_source in sources %}
         <a class="p-2 {%  if the_source['slug'] == source['slug']%} text-primary {% else %} text-muted {% endif %} "
            href="{{ url_for('source', slug=the_source['slug']) }}">
             {{ the_source['name'] }}

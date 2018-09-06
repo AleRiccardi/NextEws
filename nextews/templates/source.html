@@ -6,23 +6,23 @@
             <h1 class="display-1">
                 <span>{{ source['name'] }}</span>
             </h1>
+            <h4 class="font-italic">Source</h4>
         </div>
     </div>
 
     <main role="main">
         <div class="row">
-            <div class="col-md-12">
-                <h3 class="pl-2 pb-3 mb-2 font-italic">
-                    Last news
-                </h3>
-                {% for index, the_news in news.iterrows() %}
+            <div class="col-md-9">
+                {% for the_news in news %}
                     {% with news=the_news %}
                         {% include "components/news-standard.html" %}
                     {% endwith %}
                 {% endfor %}
             </div><!-- /.col-md-9 -->
 
-
+            {% with actual_category=None %}
+                {% include 'includes/_sidebar-home.html' %}
+            {% endwith %}
         </div><!-- /.row -->
 
 

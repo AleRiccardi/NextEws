@@ -4,6 +4,7 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 import pandas as pd
+from .model.news import News
 
 DB_FILENAME = "nextews.sql"
 
@@ -46,13 +47,13 @@ def close_db(e=None):
 
 
 def query(sql, *params):
-    return pd.read_sql(sql, get_db(), params=params)
+    return pd.read_sql(sql, get_db(), params=params).to_dict('records')
 
 
 def query_one(sql, *params):
     results = query(sql, *params)
     if len(results) == 1:
-        return results.iloc[0].to_dict()
+        return results[0]
     elif len(results) == 0:
         return None
     else:
@@ -64,16 +65,27 @@ def get_news_by_id(id):
 
 
 def get_news_by_ids(ids):
-    return query("SELECT * FROM news WHERE id in ({})".format(",".join("?" * len(ids))),
-                 *ids)
+    query_news = query("SELECT * FROM news WHERE id in ({})".format(",".join("?" * len(ids))), * ids)
+    news = [News(the_news) for the_news in query_news]
+    return news
 
 
 def get_all_news():
-    return query("SELECT * FROM news ORDER BY published_at DESC")
+    query_news = query("SELECT * FROM news ORDER BY published_at DESC")
+    news = [News(the_news) for the_news in query_news]
+    return news
 
 
-def get_last_news():
-    return query("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
+def get_last_news_single():
+    query_news = query("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
+    news = [News(the_news) for the_news in query_news]
+    return news
+
+
+def get_last_news(limit_num=20):
+    query_news = query("SELECT * FROM news ORDER BY published_at DESC LIMIT ?", limit_num)
+    news = [News(the_news) for the_news in query_news]
+    return news
 
 
 def get_categories():
@@ -82,3 +94,7 @@ def get_categories():
 
 def get_sources():
     return query("SELECT * FROM sources")
+
+
+def get_authors():
+    return query("SELECT * FROM authors")

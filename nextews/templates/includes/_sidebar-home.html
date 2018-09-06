@@ -6,15 +6,21 @@
         </div>
         <div class="card-body">
             <ol class="side-cat list-unstyled mb-0">
-                {% for index, category in categories.iterrows() %}
+                {% for category in categories %}
                     <li>
                         <a href="{{ url_for('category', slug=category['slug']) }}">
-                            <div class="side-cat-icon mr-2">
-                                <div class="side-cat-icon-center">
-                                    <i class="{{ category['class'] }}"></i>
+                            {% if category['id'] == actual_category['id'] %}
+                                <div class="{{ category['class_color'] }}">
+                            {% else %}
+                                <div>
+                            {% endif %}
+                                <div class="side-cat-icon mr-2">
+                                    <div class="side-cat-icon-center">
+                                        <i class="{{ category['class_icon'] }}"></i>
+                                    </div>
                                 </div>
+                                <span class="side-cat-title">{{ category['name'] }}</span>
                             </div>
-                            <span class="side-cat-title">{{ category['name'] }}</span>
                         </a>
                     </li>
                 {% endfor %}

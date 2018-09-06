@@ -2,19 +2,23 @@
 
 {% block body %}
     <div class="jumbotron p-3 p-md-5 text-white rounded img-responsive bg-dark"
-         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ last_news.url_to_image }});">
+         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ first_news.url_to_image }});">
         <div class="col-md-8 px-0">
-            <h1 class="display-4 font-italic">{{ last_news.title }}</h1>
-            <p class="lead my-3">{{ last_news.description }}</p>
+            <h1 class="display-4 font-italic">{{ first_news.title }}</h1>
+            <p class="lead my-3">{{ first_news.description }}</p>
             <p class="lead mb-0">
-                <a href="{{ last_news.url }}" class="text-white font-weight-bold" target="_blank"
-                   rel="noopener noreferrer">Continue reading...</a>
+                {% if first_news['content'] is not none %}
+                    <a class="text-white font-weight-bold" href="{{ url_for('news', id=first_news['id']) }}">
+                {% else %}
+                    <a class="text-white font-weight-bold" href="{{ first_news['url'] }}" target="_blank">
+                {% endif %}
+                Continue reading...</a>
             </p>
         </div>
     </div>
 
     <div class="row mb-2">
-        {% for index, the_news in next_two_news.iterrows() %}
+        {% for the_news in next_news %}
 
             <div class="col-md-6">
                 <div class="card news-card flex-md-row mb-4 shadow-sm ">
@@ -58,10 +62,7 @@
     <main role="main">
         <div class="row">
             <div class="col-md-9">
-                <h3 class="pl-2 pb-3 mb-2 font-italic">
-                    Last news
-                </h3>
-                {% for index, the_news in news.iterrows() %}
+                {% for the_news in last_news %}
                     {% with news=the_news %}
                         {% include "components/news-standard.html" %}
                     {% endwith %}
@@ -70,8 +71,9 @@
 
             </div><!-- /.col-md-9 -->
 
-            {% include 'includes/_sidebar-home.html' %}
-
+            {% with actual_category=None %}
+                {% include 'includes/_sidebar-home.html' %}
+            {% endwith %}
 
         </div><!-- /.row -->
 
@@ -79,11 +81,3 @@
     </main><!-- /.container -->
 
 {% endblock body %}
-
-
-<!--
-    <nav class="blog-pagination">
-        <a class="btn btn-outline-primary" href="#">Older</a>
-        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-    </nav>
--->

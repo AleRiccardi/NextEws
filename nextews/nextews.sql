@@ -4,15 +4,16 @@ CREATE TABLE `categories` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `slug` TEXT NOT NULL,
   `name` TEXT NOT NULL,
-  `class` TEXT NOT NULL
+  `class_icon` TEXT NOT NULL,
+  `class_color` TEXT NOT NULL
 );
 
-INSERT INTO `categories` (`id`, `slug`, `name`, `class`) VALUES
-(0, 'business', 'Business', 'fas fa-building'),
-(1, 'entertainment', 'Entertainment', 'fab fa-fort-awesome'),
-(2, 'politics', 'Politics', 'fas fa-briefcase'),
-(3, 'sport', 'Sport', 'fas fa-basketball-ball'),
-(4, 'technology', 'Technology', 'fas fa-robot');
+INSERT INTO `categories` (`id`, `slug`, `name`, `class_icon`, `class_color`) VALUES
+(0, 'business', 'Business', 'fas fa-building', 'text-primary'),
+(1, 'entertainment', 'Entertainment', 'fab fa-fort-awesome', 'text-danger'),
+(2, 'politics', 'Politics', 'fas fa-briefcase', 'text-info'),
+(3, 'sport', 'Sport', 'fas fa-basketball-ball', 'text-warning'),
+(4, 'technology', 'Technology', 'fas fa-robot', 'text-success');
 
 
 CREATE TABLE `authors` (
