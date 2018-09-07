@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout/app-admin.html" %}
 
-</body>
-</html>
+{% block body %}
+
+    <div class="container">
+        <div class="jumbotron jumbotron-admin">
+            <h1 class="text-center display-4">
+                <span>Admin</span>
+            </h1>
+        </div>
+        <main role="main">
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    <div class="adm-intro show mb-4">
+                        <p class="text-justify">
+                            In this page the heart of the website is located. Here you can start downloading the news
+                            from the <a href="https://newsapi.org/">NewsAPI</a> service throw the button below and only
+                            after you can start the text-categorization.
+                            <br>
+                            The text-categorization permit to give the right categories to the news (business,
+                            entertainment,
+                            politics, sport, technology) through a process of artificial intelligence that uses
+                            neural-networks.
+                            The neural-network is already trained with other news with a result of an accuracy of 99%.
+                            <br>
+                            Start by clicking the button below.
+                        </p>
+                        <div class="adm-cont-start-btn text-center my-5">
+                            <button id="btn_dwn_news" class="btn btn-primary d-auto">
+                                Download news
+                            </button>
+                        </div>
+                    </div>
+                    <div class="amd-loading-dwn-news">
+                        <img src="{{ url_for('static', filename='images/gif/pentagono.gif') }}" class=""
+                        alt="Responsive image">
+                        <div class="adm-loader-dwn-text">
+                            Loading
+                            <span class="loader__dot">.</span>
+                            <span class="loader__dot">.</span>
+                            <span class="loader__dot">.</span>
+                        </div>
+                    </div>
+                    <div class="amd-process">
+                    </div>
+                </div><!-- /.col-md-9 -->
+            </div><!-- /.row -->
+
+
+        </main><!-- /.container -->
+    </div>
+{% endblock body %}
+
+

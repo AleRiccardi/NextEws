@@ -1,6 +1,6 @@
 from os import path
 
-from flask import render_template, request, abort, redirect, url_for
+from flask import Flask, jsonify, render_template, request, abort, redirect, url_for
 
 from . import app, db
 from .model.news import News
@@ -71,3 +71,15 @@ def author(id):
 
     return render_template("author.html", sources=sources, categories=categories, source=None, author=the_author,
                            news=news)
+
+
+@app.route("/admin")
+def admin():
+    sources = db.get_sources()
+
+    return render_template("admin.html", sources=sources, source=None)
+
+
+@app.route('/ajax_scan_news')
+def ajax_scan_news():
+    return jsonify(result=0)
