@@ -1,0 +1,4 @@
+include nextews/schema.sql
+graft nextews/static
+graft nextews/templates
+global-exclude *.pyc

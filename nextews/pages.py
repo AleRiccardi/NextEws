@@ -3,9 +3,8 @@ from os import path
 from flask import Flask, jsonify, render_template, request, abort, redirect, url_for
 
 from . import app, db
-from .model.news import News
 from .controller.news_scanner import NewsScanner
-
+import pandas as pd
 
 @app.route("/")
 def home():
@@ -84,5 +83,13 @@ def admin():
 @app.route('/ajax_scan_news')
 def ajax_scan_news():
     scanner = NewsScanner()
-    news = scanner.run_scraper()
-    return jsonify(result=news)
+    basic_news = scanner.run_scraper()
+    if isinstance(basic_news, pd.DataFrame):
+        return jsonify(success='true')
+    else:
+        return jsonify(success='false')
+
+
+@app.route('/hello')
+def hello():
+    return "Hello, World!"

@@ -46,12 +46,20 @@ def close_db(e=None):
         db.close()
 
 
-def query(sql, *params):
+def query_df(sql, *params):
+    return pd.read_sql(sql, get_db(), params=params)
+
+
+def query_dict(sql, *params):
     return pd.read_sql(sql, get_db(), params=params).to_dict('records')
 
 
+def save_df(table_name, df):
+    return df.to_sql(name=table_name, con=get_db(), if_exists='append', index=False)
+
+
 def query_one(sql, *params):
-    results = query(sql, *params)
+    results = query_dict(sql, *params)
     if len(results) == 1:
         return results[0]
     elif len(results) == 0:
@@ -65,36 +73,86 @@ def get_news_by_id(id):
 
 
 def get_news_by_ids(ids):
-    query_news = query("SELECT * FROM news WHERE id in ({})".format(",".join("?" * len(ids))), * ids)
+    query_news = query_dict("SELECT * FROM news WHERE id in ({})".format(",".join("?" * len(ids))), *ids)
     news = [News(the_news) for the_news in query_news]
     return news
 
 
 def get_all_news():
-    query_news = query("SELECT * FROM news ORDER BY published_at DESC")
+    """
+    Get all news in dictionary format.
+    :return: dictionary
+    """
+    query_news = query_dict("SELECT * FROM news ORDER BY published_at DESC")
+    news = [News(the_news) for the_news in query_news]
+    return news
+
+
+def get_all_news_df():
+    """
+    Get all news in data-frame format.
+    :return: Pandas data-frame
+    """
+    query_news = query_df("SELECT * FROM news ORDER BY published_at DESC")
     news = [News(the_news) for the_news in query_news]
     return news
 
 
 def get_last_news_single():
-    query_news = query("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
+    query_news = query_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
     news = [News(the_news) for the_news in query_news]
     return news
 
 
 def get_last_news(limit_num=20):
-    query_news = query("SELECT * FROM news ORDER BY published_at DESC LIMIT ?", limit_num)
+    query_news = query_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT ?", limit_num)
     news = [News(the_news) for the_news in query_news]
     return news
 
 
 def get_categories():
-    return query("SELECT * FROM categories")
+    """
+    Get all sources in dictionary format.
+    :return: dictionary
+    """
+    return query_dict("SELECT * FROM categories")
+
+
+def get_categories_df():
+    """
+    Get all categories in data-frame format.
+    :return: data-frame
+    """
+    return query_df("SELECT * FROM categories")
 
 
 def get_sources():
-    return query("SELECT * FROM sources")
+    """
+    Get all sources in dictionary format.
+    :return: dictionary
+    """
+    return query_dict("SELECT * FROM sources")
+
+
+def get_sources_df():
+    """
+    Get all sources in data-frame format.
+    :return: Pandas data-frame
+    """
+    return query_df("SELECT * FROM sources")
 
 
 def get_authors():
-    return query("SELECT * FROM authors")
+    """
+    Get all authors in dictionary format.
+    :return: dictionary
+    """
+    return query_dict("SELECT * FROM authors")
+
+
+def get_authors_df():
+    """
+    Get all authors in data-frame format.
+    :return: Pandas data-frame
+    """
+    return query_df("SELECT * FROM authors")

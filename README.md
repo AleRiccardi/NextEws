@@ -10,5 +10,6 @@ To set up the your flask application follow these steps:
 * Set the flask information:
     * `export FLASK_APP=nextews`
     * `export FLASK_ENV=development`
+    * `export FLASK_DEBUG=true`
 * Initialize the database `flask init-db`
 * Now you can start your flask app `flask run`

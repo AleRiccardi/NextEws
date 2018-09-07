@@ -1,4 +1,3 @@
-from .. import db
 import pandas as pd
 import numpy as np
 
@@ -7,6 +6,10 @@ from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
+
+from os import path
+
+from .. import app, db
 
 
 class NewsScanner:
@@ -22,8 +25,11 @@ class NewsScanner:
 
     def run_scraper(self):
         basic_news = self.download_basic_news()
-        # # DATA SCRAPING
+        # Data scraping
         scraped_news = self.scrap_news(basic_news, self.m_web_scrape_sources)
+
+        self.upload_to_db(scraped_news)
+
         return scraped_news
 
     # web scraper
@@ -94,6 +100,7 @@ class NewsScanner:
 
         return new_news
 
+
     @staticmethod
     def report_status(report):
         string_report = ''
@@ -136,7 +143,7 @@ class Scraper:
             self.log_error('Error during requests to {0} : {1}'.format(url, str(e)))
             return None
 
-    def is_good_response(resp):
+    def is_good_response(self, resp):
         """
         Returns True if the response seems to be HTML, False otherwise.
         """
@@ -194,7 +201,7 @@ class Scraper:
 
 
 def get_sources():
-    web_scrape_sources = pd.read_csv("", delimiter=',').fillna('')
+    web_scrape_sources = pd.read_csv(path.join(app.root_path, "static/util/web_scrape_tag.csv"), delimiter=',').fillna('')
     source_names_list = web_scrape_sources.id.unique()
     names_string = ""
     for name in source_names_list[:-1]:
