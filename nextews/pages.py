@@ -4,6 +4,7 @@ from flask import Flask, jsonify, render_template, request, abort, redirect, url
 
 from . import app, db
 from .model.news import News
+from .controller.news_scanner import NewsScanner
 
 
 @app.route("/")
@@ -82,4 +83,6 @@ def admin():
 
 @app.route('/ajax_scan_news')
 def ajax_scan_news():
-    return jsonify(result=0)
+    scanner = NewsScanner()
+    news = scanner.run_scraper()
+    return jsonify(result=news)

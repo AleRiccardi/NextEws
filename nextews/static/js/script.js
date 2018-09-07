@@ -41,8 +41,7 @@ $(function () {
         $('.adm-intro').removeClass('show');
         $('.amd-loading-dwn-news').fadeIn("slow");
 
-        $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-            a: "a"
+        $.getJSON($SCRIPT_ROOT + '/ajax_scan_news', {
         }, function (data) {
             $('.amd-loading-dwn-news').fadeOut("fast");
             $(".amd-process").text(data.result);
