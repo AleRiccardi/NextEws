@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from os import path
 
 from .. import app, db
+from .news_db import NewsDb
 
 
 class NewsScanner:
@@ -25,12 +26,14 @@ class NewsScanner:
 
     def run_scraper(self):
         basic_news = self.download_basic_news()
-        # Data scraping
+        # scrape the content
         scraped_news = self.scrap_news(basic_news, self.m_web_scrape_sources)
+        scraped_news = self.set_data_type(scraped_news)
+        print("Scraped " + str(scraped_news.shape[0]) + " news")
 
-        self.upload_to_db(scraped_news)
+        news_uploaded = self.upload_to_db(scraped_news)
 
-        return scraped_news
+        return news_uploaded
 
     # web scraper
     def scrap_news(self, news, web_scrape_sources):
@@ -82,7 +85,7 @@ class NewsScanner:
         :return:
         """
         columns = ['id_source', 'name', 'author', 'title', 'description', 'url', 'urlToImage', 'publishedAt', 'content']
-        request_number = 100
+        request_number = 10
 
         # DATA PREPARATION
         # Building and executing the request to newsapi.org
@@ -99,6 +102,12 @@ class NewsScanner:
         new_news.rename(columns={'id': 'id_source'}, inplace=True)
 
         return new_news
+
+    @staticmethod
+    def upload_to_db(news):
+        news_db_uploader = NewsDb(news)
+        news = news_db_uploader.upload()
+        return news
 
 
     @staticmethod
@@ -121,6 +130,17 @@ class NewsScanner:
 
     def get_report_messages(self):
         return self.m_report
+
+    @staticmethod
+    def set_data_type(news):
+        # Remove unuseful information in date
+        news['publishedAt'] = news['publishedAt'].apply(lambda d: d.split('.', 1)[0])
+        # Remove T letter
+        news['publishedAt'] = news['publishedAt'].apply(lambda d: d.replace('T', ' '))
+        # Converting to Date
+        news['publishedAt'] = pd.to_datetime(news['publishedAt'], format="%Y-%m-%d %H:%M:%S")
+
+        return news
 
 
 class Scraper:

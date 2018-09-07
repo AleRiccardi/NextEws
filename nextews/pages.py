@@ -85,9 +85,9 @@ def ajax_scan_news():
     scanner = NewsScanner()
     basic_news = scanner.run_scraper()
     if isinstance(basic_news, pd.DataFrame):
-        return jsonify(success='true')
+        return "false"
     else:
-        return jsonify(success='false')
+        return "false"
 
 
 @app.route('/hello')

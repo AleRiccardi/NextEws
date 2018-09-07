@@ -54,11 +54,12 @@ def query_dict(sql, *params):
     return pd.read_sql(sql, get_db(), params=params).to_dict('records')
 
 
-def save_df(table_name, df):
-    return df.to_sql(name=table_name, con=get_db(), if_exists='append', index=False)
+def save_df(name, df):
+    print(df)
+    df.to_sql(name, get_db(), if_exists='append', index=False)
 
 
-def query_one(sql, *params):
+def query_one_dict(sql, *params):
     results = query_dict(sql, *params)
     if len(results) == 1:
         return results[0]
@@ -69,7 +70,7 @@ def query_one(sql, *params):
 
 
 def get_news_by_id(id):
-    return query_one("SELECT * FROM news WHERE id=?", id)
+    return query_one_dict("SELECT * FROM news WHERE id=?", id)
 
 
 def get_news_by_ids(ids):
@@ -78,7 +79,7 @@ def get_news_by_ids(ids):
     return news
 
 
-def get_all_news():
+def get_news():
     """
     Get all news in dictionary format.
     :return: dictionary
@@ -88,7 +89,7 @@ def get_all_news():
     return news
 
 
-def get_all_news_df():
+def get_news_df():
     """
     Get all news in data-frame format.
     :return: Pandas data-frame
@@ -99,10 +100,8 @@ def get_all_news_df():
 
 
 def get_last_news_single():
-    query_news = query_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
-    news = [News(the_news) for the_news in query_news]
-    return news
-
+    query_news = query_one_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
+    return query_news
 
 def get_last_news(limit_num=20):
     query_news = query_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT ?", limit_num)

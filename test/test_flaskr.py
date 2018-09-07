@@ -20,4 +20,4 @@ def test_hello(client):
 def test_ajax_news(client):
     response = client.get('/ajax_scan_news')
     print(response.data)
-    assert response.data == "true"
+    assert response.data == b'true'
