@@ -43,55 +43,57 @@ $(function () {
 
         // Start downloading news
         $.getJSON($SCRIPT_ROOT + '/ajax_scan_news', {}, function (data) {
-            $('.adm-num-ctg-news').text(data.num_news_to_categorize)
-            $('.amd-loading-dwn-news').fadeOut("slow", function () {
-                $('.amd-loading-ctg-news').fadeIn("slow");
-            });
             // Start categorizing news
             $.getJSON($SCRIPT_ROOT + '/ajax_categorize_news', {}, function (data) {
-                for (var i = 0; i < data.length; i++) {
+                $('.amd-loading-dwn-news').fadeOut("slow", function () {
+                    $('.adm-finish').fadeIn("slow");
+                });
+                Object.keys(data).forEach(function (key) {
+                    var record = data[key];
                     var checkBox = `
                             <tr>
-                                <td scope="row" class="tbl-truncate">
+                                <th scope="row">${key + 1}</th>
+                                <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                       ${data[i].title}
+                                       ${record.title}
                                     </div>
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${data[i].description}
+                                         ${record.description}
                                     </div>
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${data[i].content}
+                                         ${record.content}
                                     </div>
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${data[i].url}
+                                        <a href="${record.url}">
+                                            ${record.url}
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${data[i].url_to_image}
+                                         <a href="${record.url_to_image}">
+                                            ${record.url_to_image}
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${data[i].published_at}
+                                         ${record.published_at}
                                     </div>
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${data[i].id_category}
+                                         ${record.id_category}
                                     </div>
                                 </td>
                             </tr>`;
                     $(checkBox).appendTo('#adm-tbl-news tbody');
-                }
-                $('.amd-loading-ctg-news').fadeOut("slow", function () {
-                    $('.adm-finish').fadeIn("slow");
                 });
             });
 

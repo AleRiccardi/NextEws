@@ -41,73 +41,35 @@
                             <span class="loader__dot">.</span>
                         </div>
                     </div>
-                    <div class="amd-loading-ctg-news">
-                        <img src="{{ url_for('static', filename='images/gif/blur-wave.gif') }}" class=""
-                             alt="Loading to categorize news">
-                        <div class="adm-loader-dwn-text">
-                            Categorizing <span class="adm-num-ctg-news">40</span> news
-                            <span class="loader__dot">.</span>
-                            <span class="loader__dot">.</span>
-                            <span class="loader__dot">.</span>
-                        </div>
+                </div><!-- /.col-md-8 -->
+                <div class="col-md-12">
+                    <div class="clearfix mb-4">
+                        <h3 class="float-left">Downloaded and categorized
+                            <span id="num_news_added" class="badge badge-light">30</span>
+                            news
+                        </h3>
+                        <button type="button" id="btn_reset_process" class="btn btn-sm btn-warning float-right">Restart</button>
                     </div>
                     <div class="adm-finish">
                         <table id="adm-tbl-news" class="table table-sm">
                             <thead>
                             <tr>
+                                <th scope="col">#</th>
                                 <th style="width: 20%">Title</th>
                                 <th style="width: 20%">Description</th>
                                 <th style="width: 20%">Content</th>
-                                <th style="width: 8%">Url</th>
-                                <th style="width: 8%">Image</th>
-                                <th style="width: 16%">Date</th>
-                                <th style="width: 8%">Category</th>
+                                <th style="width: 9%">Url</th>
+                                <th style="width: 9%">Image</th>
+                                <th style="width: 9%">Date</th>
+                                <th style="width: 9%">Category</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td scope="row" class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                                <td class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                                <td class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                                <td class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                                <td class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                                <td class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                                <td class="tbl-truncate">
-                                    <div class="tbl-truncate-in">
-                                        Ottsdfsadfdsasafasdasasddasfo
-                                    </div>
-                                </td>
-                            </tr>
-
 
                             </tbody>
                         </table>
                     </div>
-                </div><!-- /.col-md-9 -->
+                </div>
             </div><!-- /.row -->
         </main><!-- /.container -->
     </div>
