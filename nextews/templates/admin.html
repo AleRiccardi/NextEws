@@ -33,20 +33,82 @@
                     </div>
                     <div class="amd-loading-dwn-news">
                         <img src="{{ url_for('static', filename='images/gif/pentagono.gif') }}" class=""
-                        alt="Responsive image">
+                             alt="Loading to download new news">
                         <div class="adm-loader-dwn-text">
-                            Loading
+                            Downloading news
                             <span class="loader__dot">.</span>
                             <span class="loader__dot">.</span>
                             <span class="loader__dot">.</span>
                         </div>
                     </div>
-                    <div class="amd-process">
+                    <div class="amd-loading-ctg-news">
+                        <img src="{{ url_for('static', filename='images/gif/blur-wave.gif') }}" class=""
+                             alt="Loading to categorize news">
+                        <div class="adm-loader-dwn-text">
+                            Categorizing <span class="adm-num-ctg-news">40</span> news
+                            <span class="loader__dot">.</span>
+                            <span class="loader__dot">.</span>
+                            <span class="loader__dot">.</span>
+                        </div>
+                    </div>
+                    <div class="adm-finish">
+                        <table id="adm-tbl-news" class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%">Title</th>
+                                <th style="width: 20%">Description</th>
+                                <th style="width: 20%">Content</th>
+                                <th style="width: 8%">Url</th>
+                                <th style="width: 8%">Image</th>
+                                <th style="width: 16%">Date</th>
+                                <th style="width: 8%">Category</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td scope="row" class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                        Ottsdfsadfdsasafasdasasddasfo
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
                     </div>
                 </div><!-- /.col-md-9 -->
             </div><!-- /.row -->
-
-
         </main><!-- /.container -->
     </div>
 {% endblock body %}

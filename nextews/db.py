@@ -1,17 +1,20 @@
 import sqlite3
-
 import click
+import os
 from flask import current_app, g
 from flask.cli import with_appcontext
 import pandas as pd
+from nextews import app
 from .model.news import News
+from sqlalchemy import create_engine
 
-DB_FILENAME = "nextews.sql"
+SQL_CREATE_DB = "nextews.sql"
+DB_FILE = "nextews.db"
 
 
 def init_db():
     db = get_db()
-    with current_app.open_resource('nextews.sql') as f:
+    with current_app.open_resource(SQL_CREATE_DB) as f:
         db.executescript(f.read().decode('utf8'))
 
 
@@ -28,12 +31,13 @@ def init_app(app):
     app.cli.add_command(init_db_command)
 
 
+def db_path():
+    return os.path.join(current_app.instance_path, DB_FILE)
+
+
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
+        g.db = sqlite3.connect(db_path())
         g.db.row_factory = sqlite3.Row
 
     return g.db
@@ -41,7 +45,6 @@ def get_db():
 
 def close_db(e=None):
     db = g.pop('db', None)
-
     if db is not None:
         db.close()
 
@@ -55,8 +58,13 @@ def query_dict(sql, *params):
 
 
 def save_df(name, df):
-    print(df)
-    df.to_sql(name, get_db(), if_exists='append', index=False)
+    engine = create_engine('sqlite:///' + db_path())
+    df.to_sql(name, con=engine, if_exists='append', index=False)
+
+
+def overwrite_df(name, df):
+    engine = create_engine('sqlite:///' + db_path())
+    df.to_sql(name, con=engine, if_exists='replace')
 
 
 def query_one_dict(sql, *params):
@@ -68,6 +76,10 @@ def query_one_dict(sql, *params):
     else:
         raise Exception("More than one row")
 
+
+#########################
+#    News
+###########
 
 def get_news_by_id(id):
     return query_one_dict("SELECT * FROM news WHERE id=?", id)
@@ -94,20 +106,27 @@ def get_news_df():
     Get all news in data-frame format.
     :return: Pandas data-frame
     """
-    query_news = query_df("SELECT * FROM news ORDER BY published_at DESC")
-    news = [News(the_news) for the_news in query_news]
-    return news
+    return query_df("SELECT * FROM news ORDER BY published_at DESC")
 
 
 def get_last_news_single():
     query_news = query_one_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT 1")
     return query_news
 
+
 def get_last_news(limit_num=20):
     query_news = query_dict("SELECT * FROM news ORDER BY published_at DESC LIMIT ?", limit_num)
     news = [News(the_news) for the_news in query_news]
     return news
 
+
+def get_news_no_category_df():
+    return query_df("SELECT * FROM news WHERE id_category IS NULL")
+
+
+#########################
+#    Category
+#############
 
 def get_categories():
     """
@@ -125,6 +144,10 @@ def get_categories_df():
     return query_df("SELECT * FROM categories")
 
 
+#########################
+#    Sources
+#############
+
 def get_sources():
     """
     Get all sources in dictionary format.
@@ -140,6 +163,10 @@ def get_sources_df():
     """
     return query_df("SELECT * FROM sources")
 
+
+#########################
+#    Authors
+#############
 
 def get_authors():
     """

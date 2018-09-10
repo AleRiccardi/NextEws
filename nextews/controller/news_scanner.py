@@ -10,15 +10,21 @@ from bs4 import BeautifulSoup
 from os import path
 
 from .. import app, db
-from .news_db import NewsDb
+from .news_formatting import NewsFormatting
 
 
 class NewsScanner:
+    NUM_NEWS_TO_SCRAP = 30
+
     m_scraper = None
     m_scraped_news = None
     m_report = None
     m_source_name = None
     m_web_scrape_sources = None
+
+    m_num_new_authors = 0
+    m_num_new_news = 0
+    m_num_total_news = 0
 
     def __init__(self):
         self.m_scraper = Scraper()
@@ -29,11 +35,7 @@ class NewsScanner:
         # scrape the content
         scraped_news = self.scrap_news(basic_news, self.m_web_scrape_sources)
         scraped_news = self.set_data_type(scraped_news)
-        print("Scraped " + str(scraped_news.shape[0]) + " news")
-
-        news_uploaded = self.upload_to_db(scraped_news)
-
-        return news_uploaded
+        self.upload_to_db(scraped_news)
 
     # web scraper
     def scrap_news(self, news, web_scrape_sources):
@@ -76,6 +78,7 @@ class NewsScanner:
 
         return_news['content'] = contents_scraped
         self.m_scraped_news = return_news
+
         self.m_report = self.report_status(report)  # report status
         return self.m_scraped_news
 
@@ -85,7 +88,7 @@ class NewsScanner:
         :return:
         """
         columns = ['id_source', 'name', 'author', 'title', 'description', 'url', 'urlToImage', 'publishedAt', 'content']
-        request_number = 10
+        request_number = self.NUM_NEWS_TO_SCRAP
 
         # DATA PREPARATION
         # Building and executing the request to newsapi.org
@@ -103,12 +106,12 @@ class NewsScanner:
 
         return new_news
 
-    @staticmethod
-    def upload_to_db(news):
-        news_db_uploader = NewsDb(news)
-        news = news_db_uploader.upload()
-        return news
+    def upload_to_db(self, news):
+        news_db_uploader = NewsFormatting(news)
 
+        self.m_num_total_news = self.NUM_NEWS_TO_SCRAP
+        self.m_num_new_authors = news_db_uploader.m_new_authors.shape[0]
+        self.m_num_new_news = news_db_uploader.m_new_news.shape[0]
 
     @staticmethod
     def report_status(report):
@@ -221,7 +224,8 @@ class Scraper:
 
 
 def get_sources():
-    web_scrape_sources = pd.read_csv(path.join(app.root_path, "static/util/web_scrape_tag.csv"), delimiter=',').fillna('')
+    web_scrape_sources = pd.read_csv(path.join(app.root_path, "static/util/web_scrape_tag.csv"), delimiter=',').fillna(
+        '')
     source_names_list = web_scrape_sources.id.unique()
     names_string = ""
     for name in source_names_list[:-1]:

@@ -1,7 +1,6 @@
 /* stylelint-disable selector-list-comma-newline-after */
 
 html, body {
-    overflow-x: hidden;
     height: 100%;
 }
 
@@ -291,19 +290,32 @@ side-cat-title {
     transition: max-height .3s ease-in-out;
 }
 
-/*
- * Loading
- */
-
 .amd-loading-dwn-news {
     text-align: center;
-    height: 80%;
+    height: 500px;
     display: none;
 }
 
 .amd-loading-dwn-news img {
-    height: 100%;
+    height: 80%;
 }
+
+.amd-loading-ctg-news {
+    text-align: center;
+    height: 500px;
+    display: none;
+}
+
+.amd-loading-ctg-news img {
+    height: 80%;
+}
+
+.adm-finish{
+    display: none;
+}
+/*
+ * Loading dots
+ */
 
 .adm-loader-dwn-text {
     padding-left: 30px;
@@ -327,4 +339,21 @@ side-cat-title {
 
 .loader__dot:nth-child(3) {
     animation-delay: 500ms
+}
+
+/*
+ * Table style
+ */
+
+.tbl-truncate {
+    position: relative;
+    height: 35px;
+}
+
+.tbl-truncate-in {
+    position: absolute;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -1,83 +1,91 @@
 {% extends "layout/app.html" %}
 
 {% block body %}
-    <div class="jumbotron p-3 p-md-5 text-white rounded img-responsive bg-dark"
-         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ first_news.url_to_image }});">
-        <div class="col-md-8 px-0">
-            <h1 class="display-4 font-italic">{{ first_news.title }}</h1>
-            <p class="lead my-3">{{ first_news.description }}</p>
-            <p class="lead mb-0">
-                {% if first_news['content'] is not none %}
-                    <a class="text-white font-weight-bold" href="{{ url_for('news', id=first_news['id']) }}">
-                {% else %}
-                    <a class="text-white font-weight-bold" href="{{ first_news['url'] }}" target="_blank">
-                {% endif %}
-                Continue reading...</a>
-            </p>
+
+    {% if first_news %}
+        <div class="jumbotron p-3 p-md-5 text-white rounded img-responsive bg-dark"
+             style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ first_news.url_to_image }});">
+            <div class="col-md-8 px-0">
+                <h1 class="display-4 font-italic">{{ first_news.title }}</h1>
+                <p class="lead my-3">{{ first_news.description }}</p>
+                <p class="lead mb-0">
+                    {% if first_news['content'] is not none %}
+                        <a class="text-white font-weight-bold" href="{{ url_for('news', id=first_news['id']) }}">
+                    {% else %}
+                        <a class="text-white font-weight-bold" href="{{ first_news['url'] }}" target="_blank">
+                    {% endif %}
+                    Continue reading...</a>
+                </p>
+            </div>
         </div>
-    </div>
 
-    <div class="row mb-2">
-        {% for the_news in next_news %}
+        <div class="row mb-2">
+            {% for the_news in (next_news or []) %}
 
-            <div class="col-md-6">
-                <div class="card news-card flex-md-row mb-4 shadow-sm ">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <div class="flex-row mb-2 justify-content-between">
-                            <a class="text-primary mr-3" href="#">
-                                <strong class="">World</strong>
-                            </a>
-                            <a class="text-muted" href="#">
-                                <small class="">National Geographic</small>
-                            </a>
-                        </div>
-
-                        <a href="{{ the_news.url }}" target="_blank" rel="noopener noreferrer">
-                            <div>
-                                <h4 class="mb-0">
-                                    {{ the_news.title }}
-                                </h4>
-                                <div class="mb-1 text-muted">Nov 12</div>
-                                <p class="card-text mb-auto">
-                                    {% if not the_news.description|length > 70 %}
-                                        {{ the_news.description }}
-                                    {% else %}
-                                        {{ the_news.description[:70] }} ...
-                                    {% endif %}
-                                </p>
+                <div class="col-md-6">
+                    <div class="card news-card flex-md-row mb-4 shadow-sm ">
+                        <div class="card-body d-flex flex-column align-items-start">
+                            <div class="flex-row mb-2 justify-content-between">
+                                <a class="text-primary mr-3" href="#">
+                                    <strong class="">World</strong>
+                                </a>
+                                <a class="text-muted" href="#">
+                                    <small class="">National Geographic</small>
+                                </a>
                             </div>
-                        </a>
-                        <small class="mt-auto text-muted">by <a href="#">Mark</a></small>
-                    </div>
-                    <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
-                        <img class="img-resp-in-div" src="{{ the_news.url_to_image }}"
-                             alt="Card image cap">
+
+                            <a href="{{ the_news.url }}" target="_blank" rel="noopener noreferrer">
+                                <div>
+                                    <h4 class="mb-0">
+                                        {{ the_news.title }}
+                                    </h4>
+                                    <div class="mb-1 text-muted">Nov 12</div>
+                                    <p class="card-text mb-auto">
+                                        {% if not the_news.description|length > 70 %}
+                                            {{ the_news.description }}
+                                        {% else %}
+                                            {{ the_news.description[:70] }} ...
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </a>
+                            <small class="mt-auto text-muted">by <a href="#">Mark</a></small>
+                        </div>
+                        <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
+                            <img class="img-resp-in-div" src="{{ the_news.url_to_image }}"
+                                 alt="Card image cap">
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
 
-    </div>
-
-    <main role="main">
-        <div class="row">
-            <div class="col-md-9">
-                {% for the_news in last_news %}
-                    {% with news=the_news %}
-                        {% include "components/news-standard.html" %}
-                    {% endwith %}
-                {% endfor %}
+        <main role="main">
+            <div class="row">
+                <div class="col-md-9">
+                    {% for the_news in (last_news or []) %}
+                        {% with news=the_news %}
+                            {% include "components/news-standard.html" %}
+                        {% endwith %}
+                    {% endfor %}
 
 
-            </div><!-- /.col-md-9 -->
+                </div><!-- /.col-md-9 -->
 
-            {% with actual_category=None %}
-                {% include 'includes/_sidebar-home.html' %}
-            {% endwith %}
+                {% with actual_category=None %}
+                    {% include 'includes/_sidebar-home.html' %}
+                {% endwith %}
 
-        </div><!-- /.row -->
+            </div><!-- /.row -->
 
 
-    </main><!-- /.container -->
+        </main><!-- /.container -->
+    {% else %}
+
+        <!-- NO NEWS TO DISPLAY -->
+        <div class="jumbotron p-3 p-md-5">
+            <h1 class="display-3">No news to display</h1>
+        </div>
+    {% endif %}
 
 {% endblock body %}

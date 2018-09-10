@@ -41,10 +41,60 @@ $(function () {
         $('.adm-intro').removeClass('show');
         $('.amd-loading-dwn-news').fadeIn("slow");
 
-        $.getJSON($SCRIPT_ROOT + '/ajax_scan_news', {
-        }, function (data) {
-            $('.amd-loading-dwn-news').fadeOut("fast");
-            $(".amd-process").text(data.result);
+        // Start downloading news
+        $.getJSON($SCRIPT_ROOT + '/ajax_scan_news', {}, function (data) {
+            $('.adm-num-ctg-news').text(data.num_news_to_categorize)
+            $('.amd-loading-dwn-news').fadeOut("slow", function () {
+                $('.amd-loading-ctg-news').fadeIn("slow");
+            });
+            // Start categorizing news
+            $.getJSON($SCRIPT_ROOT + '/ajax_categorize_news', {}, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var checkBox = `
+                            <tr>
+                                <td scope="row" class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                       ${data[i].title}
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                         ${data[i].description}
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                         ${data[i].content}
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                         ${data[i].url}
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                         ${data[i].url_to_image}
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                         ${data[i].published_at}
+                                    </div>
+                                </td>
+                                <td class="tbl-truncate">
+                                    <div class="tbl-truncate-in">
+                                         ${data[i].id_category}
+                                    </div>
+                                </td>
+                            </tr>`;
+                    $(checkBox).appendTo('#adm-tbl-news tbody');
+                }
+                $('.amd-loading-ctg-news').fadeOut("slow", function () {
+                    $('.adm-finish').fadeIn("slow");
+                });
+            });
+
         });
     });
 

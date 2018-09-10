@@ -1,8 +1,6 @@
 from flask import Flask
 import os
 
-app = None
-
 # ===================================================================
 # Creation of App
 # ===================================================================
@@ -11,7 +9,6 @@ app = None
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_mapping(
     SECRET_KEY='3f9rwhv0e8ht9c49y5437ytc9',
-    DATABASE=os.path.join(app.instance_path, 'nextews.sqlite'),
 )
 
 # load the instance config, if it exists, when not testing
