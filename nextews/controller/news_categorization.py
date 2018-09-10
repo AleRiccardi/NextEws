@@ -24,8 +24,8 @@ def load_my_model():
     try:
         model
     except NameError:
-        if os.path.getsize(get_model()) > 0:
-            model = load_model(get_model())
+        if os.path.getsize(get_model_path()) > 0:
+            model = load_model(get_model_path())
     # this is key : save the graph after loading the model
     global graph
     try:
@@ -34,8 +34,12 @@ def load_my_model():
         graph = tf.get_default_graph()
 
 
-def get_model():
+def get_model_path():
     return os.path.join(current_app.root_path, PATH_FILES + FILE_MODEL)
+
+
+def get_tokenizer_path():
+    return os.path.join(current_app.root_path, PATH_FILES + FILE_TOKENIZER)
 
 
 class NewsCategorization:
@@ -43,23 +47,25 @@ class NewsCategorization:
 
     m_model = None
     m_tokenizer = None
-    m_news = None
+    m_news = pd.DataFrame()
 
     def __init__(self, news):
-        if isinstance(news, pd.DataFrame) and not news.empty:
+        if not news.empty:
             self.m_news = news
+            # Load model
             load_my_model()
             # Load tokenizer
-            if os.path.getsize(self.get_tokenizer()) > 0:
-                with open(self.get_tokenizer(), 'rb') as handle:
+            if os.path.getsize(get_tokenizer_path()) > 0:
+                with open(get_tokenizer_path(), 'rb') as handle:
                     self.m_tokenizer = pickle.load(handle)
 
     def make_predictions(self):
-        if self.m_news is not None:
-            texts = [news['content'] if news is not None else news['description'] for index, news in
+        if not self.m_news.empty:
+            texts = [news['content'] if news['content'] is not "" else news['description'] for index, news in
                      self.m_news.iterrows()]
 
             cleaned = map(self.clean_doc, texts)
+            print(cleaned)
             sequences = self.m_tokenizer.texts_to_sequences(cleaned)
             sequences = sequence.pad_sequences(sequences, maxlen=self.MAX_SEQ_LENGTH, padding='post')
 
@@ -99,5 +105,11 @@ class NewsCategorization:
         tokens = [word for word in tokens if len(word) > 1]
         return ' '.join(tokens)
 
-    def get_tokenizer(self):
-        return os.path.join(current_app.root_path, PATH_FILES + FILE_TOKENIZER)
+    def get_predictions_with_name_categories(self):
+        if not self.m_news.empty:
+            news_to_return = self.m_news
+            categories = db.get_categories_df()
+            news_to_return['category'] = [categories.iloc[index]['name'] for index in self.m_news['id_category']]
+            return news_to_return
+        else:
+            return None

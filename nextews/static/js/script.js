@@ -45,14 +45,17 @@ $(function () {
         $.getJSON($SCRIPT_ROOT + '/ajax_scan_news', {}, function (data) {
             // Start categorizing news
             $.getJSON($SCRIPT_ROOT + '/ajax_categorize_news', {}, function (data) {
+                var num_news = 0;
+
                 $('.amd-loading-dwn-news').fadeOut("slow", function () {
                     $('.adm-finish').fadeIn("slow");
                 });
+
                 Object.keys(data).forEach(function (key) {
                     var record = data[key];
                     var checkBox = `
                             <tr>
-                                <th scope="row">${key + 1}</th>
+                                <th scope="row">${parseInt(key) + 1}</th>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
                                        ${record.title}
@@ -89,16 +92,26 @@ $(function () {
                                 </td>
                                 <td class="tbl-truncate">
                                     <div class="tbl-truncate-in">
-                                         ${record.id_category}
+                                         ${record.category}
                                     </div>
                                 </td>
                             </tr>`;
                     $(checkBox).appendTo('#adm-tbl-news tbody');
+                    num_news++;
                 });
+
+                $('#num_news_added').text(num_news);
             });
 
         });
     });
 
 
+    $('#btn_reset_process').bind('click', function () {
+        $('.adm-finish').fadeOut("slow", function () {
+            $('.jumbotron-admin').removeClass('jmb-adm-restrict');
+            $('.adm-intro').addClass('show');
+            $('#adm-tbl-news tbody').html('');
+        });
+    });
 });

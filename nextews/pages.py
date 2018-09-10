@@ -110,6 +110,7 @@ def ajax_categorize_news():
 
     json_response = "{}"
     if news_predicted is not None:
+        news_predicted = news_cat.get_predictions_with_name_categories()
         json_response = news_predicted.to_json(orient='index')
 
     return json_response
