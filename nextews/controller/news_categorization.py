@@ -1,16 +1,22 @@
 import re, string, os
-import numpy as np
 import pandas as pd
 import pickle
 import nltk
 from nltk.corpus import stopwords
 from keras.models import load_model
 import tensorflow as tf
-from tensorflow.keras import backend
-from tensorflow.python.keras.preprocessing import sequence, text
+from tensorflow.python.keras.preprocessing import sequence
 
-from flask import current_app, flash, g
+from flask import current_app
 from .. import db
+
+"""
+This file contains functions and a class that permit
+to do text-classification throw neural networks.
+
+@author:    Alericcardi
+@version:   1.0.0
+"""
 
 nltk.download("punkt", quiet=True)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -20,6 +26,14 @@ FILE_TOKENIZER = 'tokenizer.pickle'
 
 
 def load_my_model():
+    """
+    That function permit to load only one time the model and the
+    graph to store them in the global variables.
+    (Resolve a bug that flask present with the keras library)
+
+    @author:    Alericcardi
+    @version:   1.0.0
+    """
     global model
     try:
         model
@@ -43,6 +57,14 @@ def get_tokenizer_path():
 
 
 class NewsCategorization:
+    """
+    The class do text-classification on news contents and permit
+    to return the specific category. It uses a model that were alredy
+    trained in the past with an high accuracy.
+
+    @author:    Alericcardi
+    @version:   1.0.0
+    """
     MAX_SEQ_LENGTH = 200
 
     m_model = None
@@ -50,6 +72,10 @@ class NewsCategorization:
     m_news = pd.DataFrame()
 
     def __init__(self, news):
+        """
+        The cunstructor loads the model, the tokenizer and store the news .
+        :param news: data-frame news (pandas)
+        """
         if not news.empty:
             self.m_news = news
             # Load model
@@ -60,6 +86,13 @@ class NewsCategorization:
                     self.m_tokenizer = pickle.load(handle)
 
     def make_predictions(self):
+        """
+        This function is triggered when we want to start the text
+        classification on the news that were given in the constructor.
+
+        :return: the news with the id_category column filled, else a None
+         value if presents problems.
+        """
         if not self.m_news.empty:
             texts = [news['content'] if news['content'] is not "" else news['description'] for index, news in
                      self.m_news.iterrows()]
@@ -87,6 +120,8 @@ class NewsCategorization:
             - Removing stopwords
             - Removing punctuations
             - Removing short words
+
+        :return: cleaned text.
         """
         stop_words = set(stopwords.words('english'))
 
@@ -107,6 +142,14 @@ class NewsCategorization:
         return ' '.join(tokens)
 
     def get_predictions_with_name_categories(self):
+        """
+        Permit to retrieve the words of the specific category
+        (and not a number) for a better visualization.
+
+        :return: the news data-frame with the category column,
+         else a None value if presents
+        problems.
+        """
         if not self.m_news.empty:
             news_to_return = self.m_news
             categories = db.get_categories_df()

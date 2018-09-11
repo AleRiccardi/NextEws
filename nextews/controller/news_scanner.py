@@ -12,8 +12,25 @@ from os import path
 from .. import app, db
 from .news_formatting import NewsFormatting
 
+"""
+This file contain multiple class and functions
+that collaborate each other for the news scraping.
+
+@author:    Alericcardi
+@version:   1.0.0
+"""
+
 
 class NewsScanner:
+    """
+    NewsScanner class.
+    Called from the ajax_news_process() in the pages.py
+    and permit to retrieve headline news and scrap their
+    content (if possible).
+
+    @author:    Alericcardi
+    @version:   1.0.0
+    """
     NUM_NEWS_TO_SCRAP = 40
 
     m_scraper = None
@@ -148,7 +165,14 @@ class NewsScanner:
 
 
 class Scraper:
+    """
+    Scraper class.
+    This is the arm of the scraper process, it permit to make a request throw
+    a link (url) that is give as input, and return the content that we need.
 
+    @author:    Alericcardi
+    @version:   1.0.0
+    """
     def simple_get(self, url):
         """
         Attempts to get the content at `url` by making an HTTP GET request.

@@ -1,7 +1,16 @@
 from .. import db
 from datetime import datetime
 
+
 class News:
+    """
+    Model news.
+    That class contain all the information the a news
+    require.
+
+    @author:    Alericcardi
+    @version:   1.0.0
+    """
     id = None
     title = None
     description = None
@@ -14,6 +23,11 @@ class News:
     id_category = None
 
     def __init__(self, the_news):
+        """
+        Recive a dict. object and fill all the field that
+        the news class has.
+        :param the_news: dictionary object
+        """
         self.id = the_news['id']
         self.title = the_news['title']
         self.description = the_news['description']

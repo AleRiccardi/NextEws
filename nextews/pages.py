@@ -7,9 +7,19 @@ from .controller.news_scanner import NewsScanner
 from .controller.news_categorization import NewsCategorization
 import pandas as pd
 
+"""
+Pages management
+
+@author:    Alericcardi
+@version:   1.0.0
+"""
+
 
 @app.route("/")
-def home():
+def index():
+    """
+    Redirect to the index page
+    """
     news = db.get_last_news()
     if news and len(news) > 3:
         first_news = news[0]

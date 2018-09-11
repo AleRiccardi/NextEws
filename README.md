@@ -22,19 +22,6 @@ In case it gaves you encoding problems set in your bash.
 * `export LC_ALL=en_us.UTF-8`
 * `export LANG=en_us.UTF-8`
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
-
-## Authors
-* **Alessandro Riccardi** - [Alericcardi](https://github.com/alericcardi)
-
-## License
-
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
-This project is licensed under the Apache 2.0 - see the [LICENSE](LICENSE) file for details.
-
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
@@ -52,3 +39,16 @@ Please note we have a code of conduct, please follow it in all your interactions
    Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
 4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning.
+
+## Authors
+* **Alessandro Riccardi** - [Alericcardi](https://github.com/alericcardi)
+
+## License
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+This project is licensed under the Apache 2.0 - see the [LICENSE](LICENSE) file for details.

@@ -8,6 +8,13 @@ from nextews import app
 from .model.news import News
 from sqlalchemy import create_engine
 
+"""
+Database management.
+
+@author:    Alericcardi
+@version:   1.0.0
+"""
+
 SQL_CREATE_DB = "nextews.sql"
 DB_FILE = "nextews.db"
 

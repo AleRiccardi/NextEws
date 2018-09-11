@@ -4,6 +4,15 @@ from .. import app, db
 
 
 class NewsFormatting:
+    """
+    NewsFormatting class.
+    This class is useful to reorder the information of the news that
+    where scraped and and to check if they are already present in
+    the database.
+
+    @author:    Alericcardi
+    @version:   1.0.0
+    """
     m_all_authors = None
     m_all_sources = None
     m_new_authors = None

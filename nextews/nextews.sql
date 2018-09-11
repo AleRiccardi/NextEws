@@ -1,4 +1,15 @@
 
+/*************************************
+
+Sql file that will be called for the
+creation from the command:
+
+$ flask init-db
+
+@author:    Alericcardi
+@version:   1.0.0
+ */
+
 
 CREATE TABLE `categories` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
