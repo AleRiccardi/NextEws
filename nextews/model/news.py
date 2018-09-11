@@ -1,5 +1,5 @@
 from .. import db
-
+from datetime import datetime
 
 class News:
     id = None
@@ -23,7 +23,7 @@ class News:
         self.published_at = the_news['published_at']
         self.id_author = the_news['id_author']
         self.id_source = the_news['id_source']
-        #self.id_category = the_news['id_category']
+        self.id_category = the_news['id_category']
 
     def get_dict(self):
         return {
@@ -55,3 +55,9 @@ class News:
         sources = db.get_sources()
         the_source = [source for source in sources if source['id'] == self.id_source][0]
         return the_source
+
+    def get_published_string(self):
+        time_string = self.published_at.split('.', 1)[0]
+        time = datetime.strptime(time_string, "%Y-%m-%d %H:%M:%S")
+
+        return time.strftime('Published the %d, %b %Y')

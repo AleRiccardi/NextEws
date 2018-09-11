@@ -21,41 +21,10 @@
 
         <div class="row mb-2">
             {% for the_news in (next_news or []) %}
-
                 <div class="col-md-6">
-                    <div class="card news-card flex-md-row mb-4 shadow-sm ">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <div class="flex-row mb-2 justify-content-between">
-                                <a class="text-primary mr-3" href="#">
-                                    <strong class="">World</strong>
-                                </a>
-                                <a class="text-muted" href="#">
-                                    <small class="">National Geographic</small>
-                                </a>
-                            </div>
-
-                            <a href="{{ the_news.url }}" target="_blank" rel="noopener noreferrer">
-                                <div>
-                                    <h4 class="mb-0">
-                                        {{ the_news.title }}
-                                    </h4>
-                                    <div class="mb-1 text-muted">Nov 12</div>
-                                    <p class="card-text mb-auto">
-                                        {% if not the_news.description|length > 70 %}
-                                            {{ the_news.description }}
-                                        {% else %}
-                                            {{ the_news.description[:70] }} ...
-                                        {% endif %}
-                                    </p>
-                                </div>
-                            </a>
-                            <small class="mt-auto text-muted">by <a href="#">Mark</a></small>
-                        </div>
-                        <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
-                            <img class="img-resp-in-div" src="{{ the_news.url_to_image }}"
-                                 alt="Card image cap">
-                        </div>
-                    </div>
+                    {% with news=the_news %}
+                        {% include "components/news-standard.html" %}
+                    {% endwith %}
                 </div>
             {% endfor %}
         </div>
@@ -64,7 +33,7 @@
             <div class="row">
                 <div class="col-md-9">
                     {% for the_news in (last_news or []) %}
-                        {% with news=the_news %}
+                        {% with news=the_news, extended=True %}
                             {% include "components/news-standard.html" %}
                         {% endwith %}
                     {% endfor %}

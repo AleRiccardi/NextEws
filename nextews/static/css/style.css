@@ -263,6 +263,19 @@ side-cat-title {
 }
 
 /*-------------------
+  News page
+  -------------------*/
+
+.jmb-cont {
+    overflow: hidden;
+    border-radius: .25rem !important;
+}
+
+.jumbotron-news {
+    margin-bottom: 0 !important;
+}
+
+/*-------------------
   Admin
   -------------------*/
 
@@ -310,9 +323,10 @@ side-cat-title {
     height: 80%;
 }
 
-.adm-finish{
+.adm-finish {
     display: none;
 }
+
 /*
  * Loading dots
  */

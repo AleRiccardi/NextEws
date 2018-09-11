@@ -1,33 +1,44 @@
 <div class="card news-card nc-extended flex-md-row mb-4 shadow-sm ">
     <div class="card-body d-flex flex-column align-items-start">
         <div class="flex-row mb-2 justify-content-between">
-            <a class="text-primary mr-3" href="#">
-                <strong class="">World</strong>
-            </a>
+            {% if news.get_category() %}
+                <a class="{{ news.get_category()['class_color'] }} mr-3"
+                   href="{{ url_for('category', slug=news.get_category()['slug']) }}">
+                    <strong class="">{{ news.get_category()['name'] }}</strong>
+                </a>
+            {% endif %}
             <a class="text-muted" href="{{ url_for('source', slug=news.get_source()['slug']) }}">
                 <small class="">{{ news.get_source()['name'] }}</small>
             </a>
         </div>
 
-        {% if news['content'] is not none %}
+        {% if news['content'] != "" %}
             <a class="w-100" href="{{ url_for('news', id=news['id']) }}">
         {% else %}
             <a class="w-100" href="{{ news['url'] }}" target="_blank">
         {% endif %}
         <div>
             <h4 class="mb-0">
-                {{ news.title }}
+                {% if not news.title|length > 60 or extended == True %}
+                    {{ news.title }}
+                {% else %}
+                    {{ news.title[:60] }} ...
+                {% endif %}
             </h4>
-            <div class="mb-1 text-muted">Nov 12</div>
             <p class="card-text mb-auto">
-                {{ news.description }}
+                {% if not news.description|length > 70 or extended == True %}
+                    {{ news.description }}
+                {% else %}
+                    {{ news.description[:70] }} ...
+                {% endif %}
             </p>
         </div>
         </a>
         {% if news.get_author() %}
             <small class="mt-2">
-                by
-                <a class="text-muted" href="{{ url_for('author', id=news.get_author()['id']) }}">
+                <span class="text-muted">{{ news.get_published_string() }} by</span>
+
+                <a class="" href="{{ url_for('author', id=news.get_author()['id']) }}">
                     {{ news.get_author()['name'] }}
                 </a>
             </small>

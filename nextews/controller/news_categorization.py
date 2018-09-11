@@ -72,6 +72,7 @@ class NewsCategorization:
             with graph.as_default():
                 predictions = model.predict_classes(sequences)
             self.m_news['id_category'] = predictions
+            self.m_news.set_index('id')
             db.overwrite_df(name='news', df=self.m_news)
             return self.m_news
         return None

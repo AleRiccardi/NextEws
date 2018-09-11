@@ -159,11 +159,11 @@ class Scraper:
                 if self.is_good_response(resp):
                     return resp.content
                 else:
-                    self.log_error('Error during requests to {0} : status code {1}'.format(url, str(resp.status_code)))
+                    self.log_error('Error during requests to ' + url + ' : status code ' + str(resp.status_code))
                     return None
 
         except RequestException as e:
-            self.log_error('Error during requests to {0} : {1}'.format(url, str(e)))
+            self.log_error('Error during requests to ' + url + ' : ' + str(e))
             return None
 
     def is_good_response(self, resp):

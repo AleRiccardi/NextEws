@@ -1,14 +1,37 @@
 {% extends "layout/app.html" %}
 
 {% block body %}
-    <div class="jumbotron p-3 p-md-5 text-white rounded img-responsive bg-dark"
-         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ news['url_to_image'] }});">
-        <div class="col-md-12 px-0 text-center">
-            <h1 class="display-4 font-italic">{{ news['title'] }}</h1>
-            <p class="lead my-3">{{ news['description'] }}</p>
+    <div class="jmb-cont mb-4">
+        <div class="jumbotron jumbotron-fluid jumbotron-news p-3 p-md-5 text-white img-responsive bg-dark"
+             style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .30), rgba(0, 0, 0, .30)), url({{ news['url_to_image'] }});">
+            <div class="col-md-12 px-0 text-center">
+                <h1 class="display-4 font-italic">{{ news['title'] }}</h1>
+                <p class="lead my-3">{{ news['description'] }}</p>
+            </div>
+        </div>
+        <div class="text-white p-3 bg-dark">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col text-left">
+                        {% if news.get_author() %}
+                            <a class="text-light" href="{{ url_for('author', id=news.get_author()['id']) }}">
+                                {{ news.get_author()['name'] }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col text-center">
+                        {% if news.get_category() %}
+                            <a class="{{ news.get_category()['class_color'] }} mr-3"
+                               href="{{ url_for('category', slug=news.get_category()['slug']) }}">
+                                <strong class="">{{ news.get_category()['name'] }}</strong>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col text-right">{{ news.get_published_string() }}</div>
+                </div>
+            </div>
         </div>
     </div>
-
     <main role="main">
         <div class="row justify-content-md-center">
             <div class="col-md-8 ">
@@ -18,7 +41,8 @@
                     </p>
                 </div>
                 <div class="text-center">
-                    <a class="btn btn-outline-primary mb-5" href="{{ news['url'] }}" target="_blank">Read on own newspaper ...</a>
+                    <a class="btn btn-outline-primary mb-5" href="{{ news['url'] }}" target="_blank">Read on own
+                        newspaper ...</a>
                 </div>
             </div><!-- /.col-md-9 -->
         </div><!-- /.row -->

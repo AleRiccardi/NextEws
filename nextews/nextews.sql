@@ -48,11 +48,10 @@ CREATE TABLE `sources` (
 INSERT INTO `sources` (`id`, `slug`, `name`) VALUES
 (1, 'techcrunch', 'TechCrunch'),
 (2, 'cnn', 'CNN'),
-(3, 'national-geographic', 'National Geographic'),
-(4, 'fox-news', 'Fox News'),
-(5, 'nbc-news', 'NBC News'),
-(6, 'independent', 'Independent'),
-(7, 'vice-news', 'Vice News'),
-(8, 'the-economist', 'The Economist');
+(3, 'fox-news', 'Fox News'),
+(4, 'nbc-news', 'NBC News'),
+(5, 'independent', 'Independent'),
+(6, 'vice-news', 'Vice News'),
+(7, 'the-economist', 'The Economist');
 
 

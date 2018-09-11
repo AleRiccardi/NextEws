@@ -78,6 +78,8 @@ class NewsFormatting:
             recent_news.drop(ids_recent_duplicate, inplace=True)
 
         # print("Found " + str(recent_news.shape[0]) + " new news")
+        print('After Formatting')
+        print(recent_news)
         db.save_df(name='news', df=recent_news)
         return recent_news
 

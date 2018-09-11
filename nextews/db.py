@@ -59,6 +59,11 @@ def query_dict(sql, *params):
 
 def save_df(name, df):
     engine = create_engine('sqlite:///' + db_path())
+    last_id_string = pd.read_sql_query('select max(id) FROM `' + name + '`', engine).values
+    if last_id_string:
+        max_id = int(last_id_string)
+        df['id'] = range(max_id + 1, max_id + len(df) + 1)
+
     df.to_sql(name, con=engine, if_exists='append', index=False)
 
 
@@ -82,7 +87,8 @@ def query_one_dict(sql, *params):
 ###########
 
 def get_news_by_id(id):
-    return query_one_dict("SELECT * FROM news WHERE id=?", id)
+    the_news = query_one_dict("SELECT * FROM news WHERE id=?", id)
+    return News(the_news)
 
 
 def get_news_by_ids(ids):
@@ -120,8 +126,26 @@ def get_last_news(limit_num=20):
     return news
 
 
-def get_news_no_category_df():
+def get_news_with_no_category_df():
     return query_df("SELECT * FROM news WHERE id_category IS NULL")
+
+
+def get_news_by_category_id(id):
+    query_news = query_dict("SELECT * FROM news WHERE id_category = ?", id)
+    news = [News(the_news) for the_news in query_news]
+    return news
+
+
+def get_news_by_source_id(id):
+    query_news = query_dict("SELECT * FROM news WHERE id_source = ?", id)
+    news = [News(the_news) for the_news in query_news]
+    return news
+
+
+def get_news_by_author_id(id):
+    query_news = query_dict("SELECT * FROM news WHERE id_author = ?", id)
+    news = [News(the_news) for the_news in query_news]
+    return news
 
 
 #########################
