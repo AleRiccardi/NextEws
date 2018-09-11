@@ -5,7 +5,7 @@ import pytest
 from nextews import get_app, db
 from nextews.db import get_db, init_db
 
-with open(os.path.join(os.path.dirname(__file__), 'nextews_test.sql'), 'rb') as f:
+with open(os.path.join(os.path.dirname(__file__), 'test_database.sql'), 'rb') as f:
     _data_sql = f.read().decode('utf8')
 
 
