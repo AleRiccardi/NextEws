@@ -85,7 +85,7 @@ class NewsScanner:
                     contents = self.m_scraper.get_content(the_news, body, web_scrape_sources)
                     for content in contents:
                         if content.text is not None and len(content.text) > 50:
-                            content_found += content.text.strip() + ' '
+                            content_found += content.text.strip() + ' <br><br> '
                             report.loc[index] = [index, True, '']
                     # if content retrived if empty
                     if content_found == '':
@@ -94,7 +94,7 @@ class NewsScanner:
             contents_scraped.append(content_found)
 
         return_news['content'] = contents_scraped
-        self.m_scraped_news = return_news
+        self.m_scraped_news = return_news[return_news['content'] != '']
 
         self.m_report = self.report_status(report)  # report status
         return self.m_scraped_news

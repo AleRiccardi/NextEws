@@ -16,7 +16,7 @@ nltk.download("punkt", quiet=True)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 PATH_FILES = 'static/util/'
 FILE_MODEL = 'news_cnn_model.h5'
-FILE_TOKENIZER = 'tokenizer.pickle'
+FILE_TOKENIZER = 'news_cnn_tokenizer.pickle'
 
 
 def load_my_model():
