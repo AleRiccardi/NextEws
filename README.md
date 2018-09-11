@@ -6,21 +6,30 @@ with other news with an high accuracy.
 
 ## Set up
 To set up the your flask application follow these steps:
-* Create a virtual environment `python3 -m venv nextews_env`
-* Install flask `pip install flask`
+* Create a virtual environment $ `python3 -m venv nextews_env`
+* Set the virtual environment $ `source nextews_env/bin/activate`
 * Install the follow libraries:
-    * `pandas`
-* Set the virtual environment `source nextews_env/bin/activate`
+    * $ `python3 -m pip install flask`
+    * $ `python3 -m pip install pandas`
+    * $ `python3 -m pip install numpy`
+    * $ `python3 -m pip install sqlalchemy`
+    * $ `python3 -m pip install tensorflow`
+    * $ `python3 -m pip install keras`
+    * $ `python3 -m pip install nltk`
+    * $ `python3 -m pip install newsapi-python`
+    * $ `python3 -m pip install requests`
+    * $ `python3 -m pip install click`
+    * $ `python3 -m pip install beautifulsoup4`
 * Set the flask information:
-    * `export FLASK_APP=nextews`
-    * `export FLASK_ENV=development`
-    * `export FLASK_DEBUG=true`
+    * $ `export FLASK_APP=nextews`
+    * $ `export FLASK_ENV=development`
+    * $ `export FLASK_DEBUG=true`
 * Initialize the database `flask init-db`
 * Now you can start your flask app `flask run`
 
 In case it gaves you encoding problems set in your bash.
-* `export LC_ALL=en_us.UTF-8`
-* `export LANG=en_us.UTF-8`
+* $ `export LC_ALL=en_us.UTF-8`
+* $ `export LANG=en_us.UTF-8`
 
 ## Contributing
 

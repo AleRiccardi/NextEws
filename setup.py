@@ -1,6 +1,11 @@
+# coding=UTF-8
 from setuptools import find_packages, setup
 
 """
+*************************
+    To be fixed
+*****************
+
 Setup configuration.
 To install your application (ideally into a virtualenv) just run 
 the setup.py script with the install parameter. It will install 
