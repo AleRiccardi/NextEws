@@ -1,0 +1,57 @@
+<div class="card news-card {% if extended == True %} nc-extended {% endif %} flex-md-row mb-4 shadow-sm ">
+    <div class="card-body d-flex flex-column align-items-start">
+        <div class="flex-row mb-2 justify-content-between">
+            {% if news.get_category() %}
+                <a class="{{ news.get_category()['class_color'] }} mr-3"
+                   href="{{ url_for('category', slug=news.get_category()['slug']) }}">
+                    <strong class="">{{ news.get_category()['name'] }}</strong>
+                </a>
+            {% endif %}
+            <a class="text-muted" href="{{ url_for('source', slug=news.get_source()['slug']) }}">
+                <small class="">{{ news.get_source()['name'] }}</small>
+            </a>
+        </div>
+
+        {% if news['content'] != "" %}
+            <a class="w-100" href="{{ url_for('news', id=news['id']) }}">
+        {% else %}
+            <a class="w-100" href="{{ news['url'] }}" target="_blank">
+        {% endif %}
+        <div>
+            <h4 class="mb-0">
+                {% if not news.title|length > 60 or extended == True %}
+                    {{ news.title }}
+                {% else %}
+                    {{ news.title[:60] }} ...
+                {% endif %}
+            </h4>
+            <p class="card-text mb-auto">
+                {% if not news.description|length > 70 or extended == True %}
+                    {{ news.description }}
+                {% else %}
+                    {{ news.description[:70] }} ...
+                {% endif %}
+            </p>
+        </div>
+        </a>
+        {% if news.get_author() %}
+            <small class="{% if extended == True %} mt-2 {% else %} mt-auto {% endif %}">
+                <span class="text-muted">{{ news.get_published_string() }} by</span>
+
+                <a class="" href="{{ url_for('author', id=news.get_author()['id']) }}">
+                    {{ news.get_author()['name'] }}
+                </a>
+            </small>
+        {% endif %}
+
+    </div>
+    {% if news.url_to_image %}
+        <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
+            <img class="img-resp-in-div" src="{{ news.url_to_image }}"
+                 alt="Card image cap">
+        </div>
+    {% else %}
+        <div class="card-img-right flex-auto d-none d-lg-block img-resp-div bg-light">
+        </div>
+    {% endif %}
+</div>

@@ -72,6 +72,10 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# IPython
+profile_default/
+ipython_config.py
+
 # pyenv
 .python-version
 
@@ -89,6 +93,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+nextews_env/
 
 # Spyder project settings
 .spyderproject
@@ -102,6 +107,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.dmypy.json
+dmypy.json
+
 
 #Other
 .idea/

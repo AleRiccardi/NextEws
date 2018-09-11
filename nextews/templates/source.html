@@ -1,0 +1,33 @@
+{% extends "layout/app.html" %}
+
+{% block body %}
+    <div class="row mt-4 mb-5">
+        <div class="col-12">
+            <h1 class="display-1">
+                <span>{{ source['name'] }}</span>
+            </h1>
+            <h4 class="font-italic">Source</h4>
+        </div>
+    </div>
+
+    <main role="main">
+        <div class="row">
+            <div class="col-md-9">
+                {% for the_news in news %}
+                    {% with news=the_news, extended=True %}
+                        {% include "components/news-standard.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div><!-- /.col-md-9 -->
+
+            {% with actual_category=None %}
+                {% include 'includes/_sidebar-home.html' %}
+            {% endwith %}
+        </div><!-- /.row -->
+
+
+    </main><!-- /.container -->
+
+{% endblock body %}
+
+
