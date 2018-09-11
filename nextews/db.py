@@ -67,11 +67,6 @@ def save_df(name, df):
     df.to_sql(name, con=engine, if_exists='append', index=False)
 
 
-def overwrite_df(name, df):
-    engine = create_engine('sqlite:///' + db_path())
-    df.to_sql(name, con=engine, if_exists='replace', index=False)
-
-
 def query_one_dict(sql, *params):
     results = query_dict(sql, *params)
     if len(results) == 1:

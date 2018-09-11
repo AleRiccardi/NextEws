@@ -6,14 +6,8 @@ import pandas as pd
 from nextews import app, db
 
 
-def test_ajax_news(client):
-    response = client.get('/ajax_scan_news')
-    print(response.data)
-    assert response.data == b'true'
-
-
-def test_ajax_news_cat(client):
-    response = client.get('/ajax_categorize_news')
+def test_ajax_news_process(client):
+    response = client.get('/ajax_news_process')
     print(response.data)
     assert response.data == b'true'
 

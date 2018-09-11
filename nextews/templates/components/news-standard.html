@@ -1,4 +1,4 @@
-<div class="card news-card nc-extended flex-md-row mb-4 shadow-sm ">
+<div class="card news-card {% if extended == True %} nc-extended {% endif %} flex-md-row mb-4 shadow-sm ">
     <div class="card-body d-flex flex-column align-items-start">
         <div class="flex-row mb-2 justify-content-between">
             {% if news.get_category() %}
@@ -35,7 +35,7 @@
         </div>
         </a>
         {% if news.get_author() %}
-            <small class="mt-2">
+            <small class="{% if extended == True %} mt-2 {% else %} mt-auto {% endif %}">
                 <span class="text-muted">{{ news.get_published_string() }} by</span>
 
                 <a class="" href="{{ url_for('author', id=news.get_author()['id']) }}">
@@ -45,8 +45,13 @@
         {% endif %}
 
     </div>
-    <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
-        <img class="img-resp-in-div" src="{{ news.url_to_image }}"
-             alt="Card image cap">
-    </div>
+    {% if news.url_to_image %}
+        <div class="card-img-right flex-auto d-none d-lg-block img-resp-div">
+            <img class="img-resp-in-div" src="{{ news.url_to_image }}"
+                 alt="Card image cap">
+        </div>
+    {% else %}
+        <div class="card-img-right flex-auto d-none d-lg-block img-resp-div bg-light">
+        </div>
+    {% endif %}
 </div>

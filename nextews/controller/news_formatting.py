@@ -11,12 +11,12 @@ class NewsFormatting:
 
     def __init__(self, news):
         if not news.empty:
-            self.m_new_authors = self.find_new_authors(news)
-            self.m_new_news = self.find_new_news(news)
+            self.m_new_authors = self.__find_new_authors(news)
+            self.m_new_news = self.__find_new_news(news)
         else:
             raise Exception("Empty data-frame passed in the constructor.")
 
-    def find_new_authors(self, news):
+    def __find_new_authors(self, news):
         """
         Unpack the downloaded news and extract the new authors
         that are not present in the database.
@@ -42,7 +42,7 @@ class NewsFormatting:
         db.save_df(name='authors', df=new_authors)
         return new_authors
 
-    def find_new_news(self, news):
+    def __find_new_news(self, news):
         """
         Unpack the downloaded news and extract the new news
         that are not present in the database.
@@ -77,10 +77,6 @@ class NewsFormatting:
         if ids_recent_duplicate:
             recent_news.drop(ids_recent_duplicate, inplace=True)
 
-        # print("Found " + str(recent_news.shape[0]) + " new news")
-        print('After Formatting')
-        print(recent_news)
-        db.save_df(name='news', df=recent_news)
         return recent_news
 
     def get_id_author_by_name(self, name):

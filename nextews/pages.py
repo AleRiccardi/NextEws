@@ -82,26 +82,12 @@ def admin():
     return render_template("admin.html", sources=sources, source=None)
 
 
-@app.route('/ajax_scan_news')
-def ajax_scan_news():
+@app.route('/ajax_news_process')
+def ajax_news_process():
     scanner = NewsScanner()
-    scanner.run_scraper()
-    news = db.get_news_with_no_category_df()
-    json_response = jsonify({
-        'success': True,
-        'num_new_authors': scanner.m_num_new_authors,
-        'num_total_news': scanner.m_num_total_news,
-        'num_new_news': scanner.m_num_new_news,
-        'num_news_to_categorize': news.shape[0]
-    })
+    news_scanned = scanner.run_scraper()
 
-    return json_response
-
-
-@app.route('/ajax_categorize_news')
-def ajax_categorize_news():
-    news = db.get_news_with_no_category_df()
-    news_cat = NewsCategorization(news)
+    news_cat = NewsCategorization(news_scanned)
     news_predicted = news_cat.make_predictions()
 
     json_response = "{}"

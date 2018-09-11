@@ -327,6 +327,10 @@ side-cat-title {
     display: none;
 }
 
+.adm-no-news {
+    display: none;
+}
+
 /*
  * Loading dots
  */

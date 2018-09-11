@@ -18,7 +18,7 @@ INSERT INTO `categories` (`id`, `slug`, `name`, `class_icon`, `class_color`) VAL
 
 CREATE TABLE `authors` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `name` varchar(300)  NOT NULL
+  `name` TEXT  NOT NULL
 );
 
 

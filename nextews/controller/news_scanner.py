@@ -14,7 +14,7 @@ from .news_formatting import NewsFormatting
 
 
 class NewsScanner:
-    NUM_NEWS_TO_SCRAP = 30
+    NUM_NEWS_TO_SCRAP = 40
 
     m_scraper = None
     m_scraped_news = None
@@ -35,7 +35,7 @@ class NewsScanner:
         # scrape the content
         scraped_news = self.scrap_news(basic_news, self.m_web_scrape_sources)
         scraped_news = self.set_data_type(scraped_news)
-        self.upload_to_db(scraped_news)
+        return self.upload_to_db(scraped_news)
 
     # web scraper
     def scrap_news(self, news, web_scrape_sources):
@@ -112,6 +112,7 @@ class NewsScanner:
         self.m_num_total_news = self.NUM_NEWS_TO_SCRAP
         self.m_num_new_authors = news_db_uploader.m_new_authors.shape[0]
         self.m_num_new_news = news_db_uploader.m_new_news.shape[0]
+        return news_db_uploader.m_new_news
 
     @staticmethod
     def report_status(report):
