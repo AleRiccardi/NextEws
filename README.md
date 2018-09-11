@@ -42,7 +42,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Versioning
 
-####Version: 1.0.0
+#### Version: 1.0.0
 
 We use [SemVer](http://semver.org/) for versioning.
 
