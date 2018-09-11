@@ -42,7 +42,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Versioning
 
-[![Version](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](http://semver.org/)
+####Version: 1.0.0
 
 We use [SemVer](http://semver.org/) for versioning.
 
