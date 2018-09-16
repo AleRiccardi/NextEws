@@ -47,6 +47,7 @@ $(function () {
 
             Object.keys(data).forEach(function (key) {
                 var record = data[key];
+                var content = record.content.replace(/<br>/g, '')
                 var checkBox = `
                         <tr>
                             <th scope="row">${parseInt(key) + 1}</th>
@@ -62,7 +63,7 @@ $(function () {
                             </td>
                             <td class="tbl-truncate">
                                 <div class="tbl-truncate-in">
-                                     ${record.content}
+                                     ${content}
                                 </div>
                             </td>
                             <td class="tbl-truncate">

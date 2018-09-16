@@ -25,13 +25,15 @@
                     {{ news.title[:60] }} ...
                 {% endif %}
             </h4>
-            <p class="card-text mb-auto">
-                {% if not news.description|length > 70 or extended == True %}
-                    {{ news.description }}
-                {% else %}
-                    {{ news.description[:70] }} ...
-                {% endif %}
-            </p>
+            {% if news.description %}
+                <p class="card-text mb-auto">
+                    {% if not news.description|length > 70 or extended == True %}
+                        {{ news.description }}
+                    {% else %}
+                        {{ news.description[:70] }} ...
+                    {% endif %}
+                </p>
+            {% endif %}
         </div>
         </a>
         {% if news.get_author() %}

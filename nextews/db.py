@@ -133,19 +133,19 @@ def get_news_with_no_category_df():
 
 
 def get_news_by_category_id(id):
-    query_news = query_dict("SELECT * FROM news WHERE id_category = ?", id)
+    query_news = query_dict("SELECT * FROM news WHERE id_category = ? ORDER BY published_at DESC", id)
     news = [News(the_news) for the_news in query_news]
     return news
 
 
 def get_news_by_source_id(id):
-    query_news = query_dict("SELECT * FROM news WHERE id_source = ?", id)
+    query_news = query_dict("SELECT * FROM news WHERE id_source = ? ORDER BY published_at DESC", id)
     news = [News(the_news) for the_news in query_news]
     return news
 
 
 def get_news_by_author_id(id):
-    query_news = query_dict("SELECT * FROM news WHERE id_author = ?", id)
+    query_news = query_dict("SELECT * FROM news WHERE id_author = ? ORDER BY published_at DESC", id)
     news = [News(the_news) for the_news in query_news]
     return news
 
