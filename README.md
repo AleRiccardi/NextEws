@@ -2,31 +2,33 @@
 Flask website that make text classification using neural networks on news that permit to assign the right category (business, entertainment, politics, sport, technology) through a Convolutional NN. 
 
 ## Set up
-To set up the your flask application follow these steps:
-* Create a virtual environment $ `python3 -m venv nextews_env`
-* Set the virtual environment $ `source nextews_env/bin/activate`
-* Install the follow libraries:
-    * $ `python3 -m pip install flask`
-    * $ `python3 -m pip install pandas`
-    * $ `python3 -m pip install numpy`
-    * $ `python3 -m pip install sqlalchemy`
-    * $ `python3 -m pip install tensorflow`
-    * $ `python3 -m pip install keras`
-    * $ `python3 -m pip install nltk`
-    * $ `python3 -m pip install newsapi-python`
-    * $ `python3 -m pip install requests`
-    * $ `python3 -m pip install click`
-    * $ `python3 -m pip install beautifulsoup4`
+To set up your flask application follow these steps:
+* Run the setup `.\setup.sh`
 * Set the flask information:
     * $ `export FLASK_APP=nextews`
     * $ `export FLASK_ENV=development`
     * $ `export FLASK_DEBUG=true`
-* Initialize the database `flask init-db`
+* Set the virtual environment $ `source .env/bin/activate`
 * Now you can start your flask app `flask run`
 
-In case it gaves you encoding problems set in your bash.
+In case it gives you encoding problems, set in your bash:
 * $ `export LC_ALL=en_us.UTF-8`
 * $ `export LANG=en_us.UTF-8`
+
+## Preview
+Some previews of the website.
+### Home 
+<img src="./nextews/static/images/github/home.png" width="700">
+
+<img src="./nextews/static/images/github/home2.png" width="700">
+
+### Classification  
+<img src="./nextews/static/images/github/class.png" width="700">
+
+<img src="./nextews/static/images/github/class2.png" width="700">
+
+### Source category 
+<img src="./nextews/static/images/github/source.png" width="700">
 
 ## Contributing
 

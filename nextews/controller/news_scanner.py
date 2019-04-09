@@ -201,7 +201,7 @@ class Scraper:
                 and content_type is not None
                 and content_type.find('html') > -1)
 
-    def log_error(e):
+    def log_error(self, e):
         """
         It is always a good idea to log errors.
         This function just prints them, but you can

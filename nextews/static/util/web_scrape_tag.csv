@@ -1,8 +1,0 @@
-id,body_tag_1,body_name_1,body_tag_2,body_name_2,content_tag_1,content_name_1,content_tag_2,content_name_2
-independent,div,body-content,,,p,,,
-cnn,div,pg-rail-tall__body,,,,zn-body__paragraph,,
-fox-news,div,article-body,,,p,,,
-nbc-news,article,,,,p,,,
-vice-news,div,article__body,div,post-content,p,,,
-techcrunch,div,article-content,,,p,,,
-the-economist,div,blog-post__text,,,p,,,
