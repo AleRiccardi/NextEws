@@ -3,12 +3,13 @@ Flask website that make text classification using neural networks on news that p
 
 ## Set up
 To set up your flask application follow these steps:
-* Run the setup `.\setup.sh`
+* Run the setup `./setup.sh`
 * Set the flask information:
     * $ `export FLASK_APP=nextews`
     * $ `export FLASK_ENV=development`
     * $ `export FLASK_DEBUG=true`
 * Set the virtual environment $ `source .env/bin/activate`
+* Initialize the database `flask init-db`
 * Now you can start your flask app `flask run`
 
 In case it gives you encoding problems, set in your bash:
