@@ -1,8 +1,5 @@
 # NextEws
-Simple flask website that make text classification using neural networks on news.
-The text-categorization permit to give the right categories to the news (business, entertainment, politics, sport, 
-technology) through a process of artificial intelligence that uses neural-networks. The neural-network is already trained 
-with other news with an high accuracy.
+Flask website that make text classification using neural networks on news that permit to assign the right category (business, entertainment, politics, sport, technology) through a Convolutional NN. 
 
 ## Set up
 To set up the your flask application follow these steps:
